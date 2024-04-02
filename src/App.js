@@ -9,6 +9,8 @@ import Register from './components/Register';
 import Login from './components/Login';
 import { useNavigate,Navigate } from 'react-router-dom';
 import PassC from './components/PassC';
+import VoyagerComponent from './components/VoyagerComponent';
+import JsVoyager from './components/JsVoyager';
 
 function App() {
   return (
@@ -16,9 +18,9 @@ function App() {
       <div className='Header'>
   
      <nav className='Header'>
-      <Link to='/' className='navItem'>Homepage</Link>
+      {/* <Link to='home' className='navItem'>Homepage</Link>
       <Link to='about-me' className='navItem'>About</Link>
-      <Link to='credit' className='navItem'>Credit</Link>
+      <Link to='credit' className='navItem'>Credit</Link> */}
       {/* <Link to='register' className='navItem'>Register</Link> */}
     
      </nav>
@@ -35,6 +37,8 @@ function App() {
     <Route path='/about-me'element={<About />} />
     <Route path='/credit'element={<Credit />} />
     <Route path='/register' element= {<Register/>} />
+    <Route path='/voyager' element={<VoyagerComponent/>} />
+    <Route path='/js-voyager' element={<JsVoyager/>} />
     </Routes>
     
     

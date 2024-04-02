@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -8,6 +9,16 @@ const Login = () => {
     password: '',
 
   });
+  const [error,  setError] = useState(false)
+
+  useEffect(() => {
+    if (error) {
+      // Set a timeout to clear the error after 5 seconds
+      setTimeout(() => {
+        setError(false);
+      }, 5000);
+    }
+  }, [error]);
 
   const handleLogin = () => {
     // Your login logic goes here
@@ -36,11 +47,19 @@ const Login = () => {
       };
       console.log("sending data")
       const response = await fetch('http://127.0.0.1:8000/api/auth_token/',requestOptions);
-      const data = await response.json;
+      const data = await response.json();
+      const auth = data.access_token;
+      
+      console.log(auth)
+      // setToken(data.access_token);
+      if (auth && auth.length > 1) { // Check if auth is not null/undefined and its length is greater than 1
+          handleLogin(); // Call handleLogin function
+      } else setError(true)
+
       console.log(data.error)
       console.log('Form submitted:', formData);
       // Reset the form after submission
-      handleLogin();
+     
     }
     catch (error){
       console.error('Authentication failed',error.message)
@@ -53,12 +72,16 @@ const Login = () => {
    
     fetchData()
     // Add your signup logic here using the formData state
+    // if (token.length>1){
+    //   handleLogin();
+
+    // }
 
     setFormData({
       username: '',
       email: '',
       password: '',
-      confirmPassword: '',
+      
     });
   };
 
@@ -89,12 +112,14 @@ const Login = () => {
           />
         </label>
         <button type="submit" style={styles.button}>
-          Register
+          Login
         </button>
       </form>
       <p style={styles.loginLink}>
         Don't have an account? <a href="/register" style={{color:'darkturquoise'}}>Register</a>
-      </p>
+      </p>{
+        error ? <p style={{color:'red'}}> incorrect log in data</p>: <p></p>
+      }
     </div>
   );
 };
@@ -104,7 +129,7 @@ const styles = {
     width: '300px',
     margin: 'auto',
     padding: '20px',
-    marginTop: '10px',
+    marginTop: '50px',
     border: '1px solid #ccc',
     borderRadius: '5px',
     color:'rgb(165, 247, 71)'

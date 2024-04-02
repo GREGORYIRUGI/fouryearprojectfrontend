@@ -80,7 +80,7 @@ const Register = () => {
     <div style={styles.container}>
       <h2 style={styles.heading}>Sign Up</h2>
       <form style={styles.form} onSubmit={handleSubmit}>
-        <label style={styles.label}>
+        {/* <label style={styles.label}>
           Username:
           <input
             type="text"
@@ -90,7 +90,7 @@ const Register = () => {
             style={styles.input}
             required
           />
-        </label>
+        </label> */}
         <label style={styles.label}>
           Email:
           <input

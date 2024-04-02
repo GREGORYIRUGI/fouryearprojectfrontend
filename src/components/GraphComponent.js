@@ -18,7 +18,7 @@ const MockGraphComponent = () => {
           setResults((prevResults) => ({
             aboutApp: {
               ...prevResults.aboutApp,
-              creator: 'John Doe',
+              creator: 'Gregory Irugi',
             },
           }));
         }, 1000);

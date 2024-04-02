@@ -8,7 +8,11 @@
     min-height: 100vh;
     box-shadow: 0 4px 8px rgba(255, 0, 0, 0.3);
   }
-
+.results{
+  background-color: aliceblue;
+  min-height: 100vh;
+  box-shadow: 0 4px 8px rgba(255, 115, 34, 0.3);
+}
   .queryButton{
     width : 200px;
     padding : 10px;
