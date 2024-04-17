@@ -28,15 +28,27 @@ export  default function Home(){
         }
       }, [error]);
 
-    const isValidUrl = (url) => {
+      const isValidUrl = (url) => {
+        const validPaths = ['/graphiql', '/playground', '/console', '/graphql'];
+        
         try {
-            new URL(url)
-            return true
-        }
-        catch (error){
-            return false
+            const parsedUrl = new URL(url);
+            const path = parsedUrl.pathname;
+            
+            if (!validPaths.some(validPath => path.includes(validPath))) {
+                seturl('')
+                throw new Error('URL does not seem to contail graphql api');
+            }
+            
+             return true;
+        } catch (error) {
+            alert(error.message);
+            return false;
         }
     }
+    
+
+    
     let UrL ='http://127.0.0.1/api/'
     // const fetchData = async () =>{
     //     try{
@@ -158,7 +170,7 @@ export  default function Home(){
  
         }
         else {
-            setError('Invalid URL. Please enter valid URL.')
+            setError('Enter a valid graphQL endpoint.')
         }
     }
     const general = () =>{
@@ -241,11 +253,7 @@ export  default function Home(){
                     < Rotating/>
                 ):
                 (
-                    // result.map((results) =>(
-                    //     <div key={result.id}>
-                    //         {results.resultx}
-                    //         </div>
-                    // ))
+                   
                     <div className="results">
                 {result && result.resultx && result.resultx.split(' ').map((word, index) => (
                             <span

@@ -10,8 +10,24 @@
   }
 .results{
   background-color: aliceblue;
-  min-height: 100vh;
+  /* min-height: 100vh; */
+  max-height: 200px;
+  overflow-y: auto;
   box-shadow: 0 4px 8px rgba(255, 115, 34, 0.3);
+}
+.voyager{
+  overflow-y: auto;
+  overflow-x: auto;
+  max-height: 100vh;
+  max-width: 200vh;
+  padding-left: 10px;
+  padding-right: 100px;
+  margin-top: 20px;
+  color: aliceblue;
+}
+.queryIntro{
+  min-width: 100vh;
+  height: 70px;
 }
   .queryButton{
     width : 200px;

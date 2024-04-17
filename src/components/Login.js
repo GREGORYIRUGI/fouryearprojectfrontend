@@ -10,20 +10,19 @@ const Login = () => {
 
   });
   const [error,  setError] = useState(false)
+  const [networkError,setNetworkError] = useState(false)
 
   useEffect(() => {
     if (error) {
       // Set a timeout to clear the error after 5 seconds
       setTimeout(() => {
         setError(false);
+        setNetworkError(false);
       }, 5000);
     }
-  }, [error]);
+  }, [error,networkError]);
 
   const handleLogin = () => {
-    // Your login logic goes here
-
-    // Assuming the login is successful, navigate to the home page
     navigate('/home'); // Redirect to the home page
   };
 
@@ -63,6 +62,7 @@ const Login = () => {
     }
     catch (error){
       console.error('Authentication failed',error.message)
+      setNetworkError(true)
     }
   }
 
@@ -71,12 +71,6 @@ const Login = () => {
    
    
     fetchData()
-    // Add your signup logic here using the formData state
-    // if (token.length>1){
-    //   handleLogin();
-
-    // }
-
     setFormData({
       username: '',
       email: '',
@@ -119,6 +113,9 @@ const Login = () => {
         Don't have an account? <a href="/register" style={{color:'darkturquoise'}}>Register</a>
       </p>{
         error ? <p style={{color:'red'}}> incorrect log in data</p>: <p></p>
+      }
+      {
+        networkError? <p style={{color:'red'}}> could not connect to server</p>: <p></p>
       }
     </div>
   );

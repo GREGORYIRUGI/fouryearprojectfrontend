@@ -12,11 +12,11 @@ const Rotating = () => {
     <div
       className="loading-image"
       style={{
-        width: '100px', // Adjust the initial width of your loading image
-        height: '100px', // Adjust the initial height of your loading image
+        width: '100px', 
+        height: '100px',
         background: `url(${appLogo}) center center no-repeat`,
         backgroundSize: 'contain',
-        animation: 'rotateAndScale 1s linear infinite', // Adjust the animation duration as needed
+        animation: 'rotateAndScale 1s linear infinite', 
       }}
     ></div>
   </div>

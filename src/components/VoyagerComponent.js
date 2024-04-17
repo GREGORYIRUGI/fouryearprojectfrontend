@@ -1,59 +1,55 @@
 import React, { useState } from 'react';
 import { Voyager } from 'graphql-voyager';
+import './components.css';
 
 const VoyagerComponent = () => {
   const [introspection, setIntrospection] = useState(null);
   const [inputType, setInputType] = useState('url'); // Default input type
+  const [displayInput,setDisplayInput] = useState(true)
 
-  const handleUrlSubmit = async (event) => {
-    event.preventDefault();
-    const url = event.target.url.value;
-
-    try {
-      const response = await fetch(url);
-      const data = await response.json();
-      setIntrospection(data);
-    } catch (error) {
-      console.error('Error fetching introspection:', error);
-      // Handle error gracefully (e.g., display an error message)
-    }
-  };
+  const handleDownload = () =>{
+    setDisplayInput(false)
+  }
 
   const handleInputSubmit = (event) => {
     event.preventDefault();
     const query = event.target.query.value;
     setIntrospection(JSON.parse(query)); // Parse user-provided JSON
-  };
-
-  const handleInputChange = (event) => {
-    setInputType(event.target.value);
+    setDisplayInput(false)
   };
 
   return (
     <div>
       <h2>GraphQL Voyager</h2>
-      <form onSubmit={inputType === 'url' ? handleUrlSubmit : handleInputSubmit}>
-        {inputType === 'url' && (
+      {
+        displayInput ? (
           <div>
-            <label htmlFor="url">Introspection URL:</label>
-            <input type="text" id="url" name="url" required />
-          </div>
-        )}
-        {inputType === 'input' && (
-          <div>
-            <label htmlFor="query">Introspection Query:</label>
-            <textarea id="query" name="query" rows="10" required></textarea>
-          </div>
-        )}
-        <button type="submit">Load Introspection</button>
-      </form>
+          <form onSubmit={handleInputSubmit}>
+          
+            <div>
+              <label htmlFor="query">Introspection Query:</label>
+              <textarea className="queryIntro" id="query" name="query" rows="10" required></textarea>
+            </div>
+          
+          <button type="submit">Load Introspection</button>
+        </form>
+        <br />
+        
+        </div>
+        ): <div></div>
+      }
+     
       <br />
-      <select value={inputType} onChange={handleInputChange}>
-        <option value="url">Introspection URL</option>
-        <option value="input">Introspection Query</option>
-      </select>
-      <br />
-      {introspection && <Voyager introspection={introspection} />}
+      <div className="voyager">
+        {introspection && (
+          <>
+            <Voyager introspection={introspection} displayOptions={{ display: { layout: 'graphOnly' } }} />
+            <button onClick={handleDownload}>Download Introspection</button>
+            
+          </>
+          
+        )}
+      </div>
     </div>
   );
 };
